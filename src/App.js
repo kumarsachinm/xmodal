@@ -1,7 +1,8 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const divRef = useRef(null);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -11,6 +12,21 @@ function App() {
   });
 
   const [submittedData, setSubmittedData] = useState(null);
+
+  const handleClickOutside = (event)=> {
+    if (divRef.current && !divRef.current.contains(event.target)){
+      setIsFormOpen(false);
+    }
+  } 
+
+useEffect(() => {
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  }
+
+}, [])
 
   const handleChange = (e) => {
     setFormData({
@@ -53,7 +69,7 @@ function App() {
       </button>
 
       {isFormOpen && (
-        <div className="modal-content">
+        <div ref = {divRef} className="modal-content">
           <h2 magin-top="20px">Fill Details</h2>
           <form onSubmit={handleSubmit}>
             <label>
