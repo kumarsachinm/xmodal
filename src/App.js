@@ -13,20 +13,19 @@ function App() {
 
   const [submittedData, setSubmittedData] = useState(null);
 
-  const handleClickOutside = (event)=> {
-    if (divRef.current && !divRef.current.contains(event.target)){
+  const handleClickOutside = (event) => {
+    if (divRef.current && !divRef.current.contains(event.target)) {
       setIsFormOpen(false);
     }
-  } 
+  };
 
-useEffect(() => {
-  document.addEventListener("mousedown", handleClickOutside);
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
 
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  }
-
-}, [])
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -36,23 +35,22 @@ useEffect(() => {
   };
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission
+    let today = new Date();
     if (formData.phone.length !== 10) {
       alert("Invalid phone number. Please enter a 10-digit phone number.");
     }
-    let today = new Date();
-
     if (formData.dob > today.toISOString()) {
       alert("Invalid date of birth. Date of birth can not be in the future.");
     } else {
       setSubmittedData(formData);
-      setIsFormOpen(false);
       console.log(submittedData);
+      setFormData("");
+      setIsFormOpen(false);
     }
-    setFormData("");
   };
 
   return (
-    <div className={`modal ${!isFormOpen ? "active" : "passive"}`}>
+    <div className={`modal ${isFormOpen ? "passive" : "active"}`}>
       <h1>User Details Modal</h1>
       <button
         style={{
@@ -69,7 +67,7 @@ useEffect(() => {
       </button>
 
       {isFormOpen && (
-        <div ref = {divRef} className="modal-content">
+        <div ref={divRef} className="modal-content">
           <h2 magin-top="20px">Fill Details</h2>
           <form onSubmit={handleSubmit}>
             <label>
