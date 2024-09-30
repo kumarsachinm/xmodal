@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState, useEffect, useRef } from "react";
+
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const divRef = useRef(null);
@@ -11,7 +12,7 @@ function App() {
     dob: "",
   });
 
-  const [submittedData, setSubmittedData] = useState(null);
+  // const [submittedData, setSubmittedData] = useState(null);
 
   const handleClickOutside = (event) => {
     if (divRef.current && !divRef.current.contains(event.target)) {
@@ -35,18 +36,17 @@ function App() {
   };
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission
+
     let today = new Date();
     if (formData.phone.length !== 10) {
       alert("Invalid phone number. Please enter a 10-digit phone number.");
     }
     if (formData.dob > today.toISOString()) {
       alert("Invalid date of birth. Date of birth can not be in the future.");
-    } else {
-      setSubmittedData(formData);
-      console.log(submittedData);
-      setFormData("");
-      setIsFormOpen(false);
     }
+    console.log(formData);
+
+    setFormData({ username: "", email: "", phone: "", dob: "" });
   };
 
   return (
