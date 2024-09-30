@@ -12,8 +12,6 @@ function App() {
     dob: "",
   });
 
-  // const [submittedData, setSubmittedData] = useState(null);
-
   const handleClickOutside = (event) => {
     if (divRef.current && !divRef.current.contains(event.target)) {
       setIsFormOpen(false);
@@ -50,7 +48,7 @@ function App() {
   };
 
   return (
-    <div className={`modal ${isFormOpen ? "passive" : "active"}`}>
+    <div className={`App ${isFormOpen ? "passive" : "active"}`}>
       <h1>User Details Modal</h1>
       <button
         style={{
@@ -67,77 +65,79 @@ function App() {
       </button>
 
       {isFormOpen && (
-        <div ref={divRef} className="modal-content">
+        <div ref={divRef} className="modal">
           <h2 magin-top="20px">Fill Details</h2>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Username:
+          <div className="modal-content">
+            <form onSubmit={handleSubmit}>
+              <label>
+                Username:
+                <br />
+                <input
+                  required
+                  id="username"
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                />
+              </label>
               <br />
-              <input
-                required
-                id="username"
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              Email Address:
+              <label>
+                Email Address:
+                <br />
+                <input
+                  required
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </label>
               <br />
-              <input
-                required
-                id="email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              Phone Number:
+              <label>
+                Phone Number:
+                <br />
+                <input
+                  required
+                  id="phone"
+                  type="phoneNumber"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </label>
               <br />
-              <input
-                required
-                id="phone"
-                type="phoneNumber"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              Date of Birth:
+              <label>
+                Date of Birth:
+                <br />
+                <input
+                  required
+                  id="dob"
+                  type="date"
+                  name="dob"
+                  value={formData.dob}
+                  onChange={handleChange}
+                />
+              </label>
               <br />
-              <input
-                required
-                id="dob"
-                type="date"
-                name="dob"
-                value={formData.dob}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <button
-              className="submit-button"
-              style={{
-                color: "white",
-                fontSize: "15px",
-                backgroundColor: "blue",
-                width: "125px",
-                height: "40px",
-                borderRadius: "5px",
-                margin: "10px",
-              }}
-              type="submit"
-            >
-              Submit
-            </button>
-          </form>
+              <button
+                className="submit-button"
+                style={{
+                  color: "white",
+                  fontSize: "15px",
+                  backgroundColor: "blue",
+                  width: "125px",
+                  height: "40px",
+                  borderRadius: "5px",
+                  margin: "10px",
+                }}
+                type="submit"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
       )}
     </div>
